@@ -34,14 +34,13 @@ class ReviewList(APIView):
         return response.Response(reviews)
 
     def post(self, request):
-        # Create a new review
-        # Sample Data:
-        # {
-        #     "product_id": 1,
-        #     "user_id": 1,
-        #     "rating": 5,
-        #     "comment": "Great product!"
-        # }
+        
+        {
+            "product_id": 1,
+            "user_id": 1,
+            "rating": 5,
+            "comment": "Great product!"
+        }
         db = get_db_handle()
         collection = db['reviews']
         
