@@ -101,7 +101,6 @@ DATABASES = {
     },
 }
 
-
 import urllib.parse
 
 # MongoDB Configuration
