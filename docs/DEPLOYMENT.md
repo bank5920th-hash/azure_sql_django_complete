@@ -20,11 +20,23 @@ This guide covers deploying the Django application to **Azure App Service** and 
 Deploy directly from your local Git repository or VS Code to Azure App Service (Linux).
 
 ### Configuration
+
+#### Step 1: ODBC Driver Setup (Critical for SQL Server)
+Azure App Service (Linux) requires the Microsoft ODBC Driver to connect to Azure SQL Server. A `startup.sh` file is already included in this project.
+
 1. **Startup Command**:
    Configure the startup command in the Azure Portal > **Configuration** > **General Settings** > **Startup Command**:
    ```bash
-   gunicorn --bind=0.0.0.0 --timeout 600 azure_project.wsgi
+   bash /home/site/wwwroot/startup.sh
    ```
+   
+   This script will:
+   - Install ODBC Driver 18 for SQL Server
+   - Run database migrations
+   - Collect static files
+   - Start Gunicorn
+
+#### Step 2: Environment Variables
 
 2.  **Environment Variables**:
     Set `App Settings` in the Azure Portal for your database credentials. **This is critical** for connecting to production databases:
@@ -34,7 +46,8 @@ Deploy directly from your local Git repository or VS Code to Azure App Service (
     *   `DB_PASSWORD`: `your-password`
     *   `MONGO_URI`: Your Azure Cosmos DB connection string
     *   `MONGO_DB_NAME`: `django_store_reviews`
-    *   `DJANGO_SECRET_KEY`: A strong random string for production security.
+    *   `DJANGO_SECRET_KEY`: A strong random string for production security
+    *   `DEBUG`: `False` (for production security)
 
 ### Deployment Steps
 1. **VS Code**: Use the "Azure Tools" extension to "Deploy to Web App...".
