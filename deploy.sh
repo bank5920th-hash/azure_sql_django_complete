@@ -17,12 +17,11 @@ echo "ODBC Driver installation complete!"
 echo "Installed ODBC drivers:"
 odbcinst -q -d
 
-# Run standard Oryx build
-builtInCommand=$KUDU_SYNC_COMMAND
-if [ -z "$builtInCommand" ]; then
-    # Use the default oryx build
-    echo "Running standard Python build..."
-    /opt/buildsys/bin/oryx build /home/site/wwwroot --platform python --platform-version 3.14 -o /tmp/8de6a1f4e9e8dcc
-fi
-
 echo "Deployment script complete!"
+```
+
+So the **only change** is deleting the old lines 20-26 that had the broken Oryx build logic.
+
+Then the **main fix** is still in **Azure Portal → Configuration → General Settings → Startup Command**:
+```
+gunicorn --bind=0.0.0.0:8000 --timeout 600 azure_project.wsgi:application
