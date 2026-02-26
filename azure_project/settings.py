@@ -93,11 +93,11 @@ DATABASES = {
         'NAME': 'free-sql-db-9798882',
         'USER': 'bank',
         'PASSWORD': 'Phurinut1234',
-        
+
         'HOST': 'mestupid-sql-db.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',
             'extra_params': 'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;',
         },
     },
